@@ -18,6 +18,7 @@ A professional-grade, graph-based AI agent infrastructure designed for autonomou
 *   **Streamlit Interactive Dashboard**: A premium UI featuring real-time token tracking, thread management, and a transparent view of the agent's "thinking" process (node execution path).
 *   **Robust Guardrails**: Native telemetry for budgeting tokens and managing iteration depth to ensure cost-effective and timely responses.
 *   **Human-in-the-Loop Clarification**: Automatically triggers a high-performance clarification flow via the **Intent Orchestrator** when query intent is ambiguous or non-technical.
+*    **Graph Generation**: Automatically generates a visual representation of the research process and high-level architecture of technical systems, aiding in understanding and communication.
 
 ---
 
