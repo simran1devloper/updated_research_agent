@@ -1,14 +1,13 @@
 from langchain_ollama import ChatOllama
-from state import AgentState
+from state import AgentState, IntentOutput
 from config import Config
 from memory import memory
 from prompts.clarification_prompts import INTENT_ORCHESTRATOR_PROMPT
 # Removed unused import: from prompts.analysis_prompts import QUERY_INTEGRITY_PROMPT
 import uuid
-import json
-import re
 
-llm = ChatOllama(model=Config.MODEL_NAME)
+llm = ChatOllama(model=Config.MODEL_NAME, base_url=Config.OLLAMA_BASE_URL)
+structured_llm = llm.with_structured_output(IntentOutput)
 
 def guard_layer(state: AgentState):
     """
@@ -36,30 +35,15 @@ def intent_orchestrator(state: AgentState):
     history = state.get("history", [])
     history_text = "\n".join([f"{msg['role']}: {msg['content']}" for msg in history[-5:]]) if history else "No history."
 
-    chain = INTENT_ORCHESTRATOR_PROMPT | llm
-    response = chain.invoke({"query": state["query"], "history": history_text})
-
-    tokens_used = 0
-    if hasattr(response, 'usage_metadata') and response.usage_metadata:
-        tokens_used = response.usage_metadata.get('total_tokens', 0)
-
-    content = response.content.strip()
-    print(f"DEBUG [intent_orchestrator] Raw LLM output: {content}")
-
-    # Standardized Parsing with Heuristic Fallbacks
-    intent = "Research"
-    score = 0.5
-    is_clarified = True
-    clarification_question = ""
-
+    chain = INTENT_ORCHESTRATOR_PROMPT | structured_llm
+    
     try:
-        json_match = re.search(r'\{.*\}', content, re.DOTALL)
-        parsed = json.loads(json_match.group() if json_match else content)
-
-        score = float(parsed.get("confidence_score", 0.5))
-        is_clarified = bool(parsed.get("is_clear", score >= 0.8))
-        clarification_question = parsed.get("clarification_question", "").strip()
-        raw_category = parsed.get("category", "Research")
+        response = chain.invoke({"query": state["query"], "history": history_text})
+        
+        score = response.confidence_score
+        is_clarified = response.is_clear
+        clarification_question = response.clarification_question
+        raw_category = response.category
 
         category_map = {
             "BUG": "Bug Fix",
@@ -72,20 +56,19 @@ def intent_orchestrator(state: AgentState):
         }
         intent = category_map.get(raw_category.upper(), "Research")
 
-    except (json.JSONDecodeError, ValueError) as e:
-        print(f"DEBUG [intent_orchestrator] Parse failed ({e}), using fallback.")
-        # Minimal fallback logic
-        if score < 0.8: is_clarified = False
-
-    if not is_clarified and not clarification_question:
+    except Exception as e:
+        print(f"DEBUG [intent_orchestrator] Structured output failed ({e}), using fallback.")
+        score = 0.5
+        is_clarified = False
         clarification_question = "Could you please provide more context about your query?"
+        intent = "Research"
 
     return {
         "confidence_score": score,
         "intent": intent,
         "is_clarified": is_clarified,
         "clarification_question": clarification_question,
-        "token_usage": state.get("token_usage", 0) + tokens_used,
+        "token_usage": state.get("token_usage", 0),
     }
 
 def context_retrieval(state: AgentState):

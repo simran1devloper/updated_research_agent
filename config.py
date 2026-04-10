@@ -4,14 +4,12 @@ from dotenv import load_dotenv
 
 # Load environment variables from a .env file
 load_dotenv()
-OLLAMA_URL = "https://f227-103-72-8-227.ngrok-free.app"
-MODEL = "gemma3"
 
 class Config:
     # --- Model Configuration ---
-    MODEL_NAME = "ministral-3:3b-cloud"  # Local Ollama model
+    MODEL_NAME = "ministral-3:latest"  # Local Ollama model
     TEMPERATURE = 0
-    OLLAMA_BASE_URL = "https://f227-103-72-8-227.ngrok-free.app"
+    OLLAMA_BASE_URL = "http://172.22.124.89:11434"
     
     # --- API Keys ---
     # Ensure these are set in your .env file

@@ -97,18 +97,36 @@ OUTPUT RULES — READ EVERY RULE CAREFULLY
 
 4. TONE: Senior developer readability. High signal-to-noise. No filler phrases.
 
-5. EVIDENCE TRACE RULES — produce real, clickable hyperlinks:
-   - For every source URL found in the research context, create a markdown hyperlink.
-   - Format each source as:  - [Title or Domain](URL)
-   - If you have the actual URL from search results, use it verbatim.
-   - If only a domain/title is known (no URL), write the source name plainly without a fake link.
-   - DO NOT invent or fabricate URLs. Only link to URLs explicitly present in the research context.
-   - Example of correct Evidence Trace section:
-     # Evidence Trace
-     - [LangChain Documentation](https://python.langchain.com/docs/introduction)
-     - [Tavily AI Search](https://tavily.com)
-     - LLM Knowledge Base (no URL available)
+5. ARCHITECTURAL VISUALIZATION (MERMAID):
+   - MANDATORY: Use Mermaid `sequenceDiagram` to visualize any multi-component workflow (e.g., Auth flows, Data pipelines, API handshakes).
+   - Use ` ```mermaid ` blocks.
+   - Example:
+     ```mermaid
+     sequenceDiagram
+         Participant A
+         Participant B
+         A->>B: Request
+         B-->>A: Response
+     ```
 
+6. EVIDENCE-BASED SECTIONS:
+   - ## Workflow Visualization: Include the Mermaid sequence diagram here.
+   - ## Official Documentation Links: List sources labeled "[OFFICIAL DOCS]".
+   - ## Developer Experiences & Case Studies: List sources labeled "[COMMUNITY EXPERIENCES]".
+   - ## Evidence Trace: Include all sources using Citation IDs [N].
+
+7. EVIDENCE TRACE RULES — CITATION IDs [N] ONLY:
+   - YOU ARE STRICTLY PROHIBITED from writing raw URLs (e.g., https://...).
+   - Use ONLY the integer IDs from the "CITATION MAP" (e.g., [1], [2]).
+   - PRIORITY: Always prioritize information from sources labeled "[OFFICIAL DOCS]" over "[COMMUNITY EXPERIENCES]".
+   - To cite information, use the Citation ID format [N] at the end of the sentence or in the Evidence Trace.
+   - Example Evidence Trace entry: - [Source Title]([N])
+
+═══════════════════════════════════════════════════
+CRITICAL: DO NOT WRAP YOUR ENTIRE RESPONSE IN A MARKDOWN CODE BLOCK.
+WRONG: ```markdown\n# Executive Summary\n...```
+RIGHT: # Executive Summary\n...
+START DIRECTLY WITH THE FIRST HEADING.
 ═══════════════════════════════════════════════════
 """)
 

@@ -19,7 +19,7 @@ from config import Config
 from persistence import get_checkpointer
 
 
-_llm = ChatOllama(model=Config.MODEL_NAME)
+_llm = ChatOllama(model=Config.MODEL_NAME, base_url=Config.OLLAMA_BASE_URL)
 
 
 

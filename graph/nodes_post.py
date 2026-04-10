@@ -9,18 +9,43 @@ from prompts.report_templates import OUTPUT_WRAPPER
 
 def format_output(state: AgentState):
     """
-    Formats the final output report and saves it to disk and memory.
+    Phase 5: UI & Persistence (The "Clean Finish")
+    Formats the final output report using synced Evidence Trace and Normalization.
     """
     report = state.get("final_report", "No report generated.")
-    sources = list({d.get("source", "Unknown") for d in state.get("research_data", [])})
+    url_map = state.get("url_map", {})
+    
+    # Sync Evidence Trace using url_map
+    evidence_trace = []
+    seen_urls = set()
+    if url_map:
+        for idx, url in sorted(url_map.items()):
+            # Normalization: Strip trailing slashes
+            clean_url = url.strip().rstrip('/')
+            evidence_trace.append(f"[[Source {idx}]]({clean_url})")
+            # Extract domain for the 'sources' metadata
+            try:
+                from urllib.parse import urlparse
+                domain = urlparse(clean_url).netloc
+                if domain:
+                    seen_urls.add(domain)
+            except:
+                pass
+    
+    trace_section = "\n\n### Evidence Trace\n" + "\n".join([f"- {s}" for s in evidence_trace]) if evidence_trace else ""
+    
+    # Ensure raw report has the trace or append if LLM missed it/doesn't have it
+    if "Evidence Trace" not in report:
+        report += trace_section
+
     confidence = state.get("confidence_score", 0.0)
     mode = state.get("mode", "unknown")
     token_usage = state.get("token_usage", 0)
 
-    # Safely format the wrapper (sources is already a list, convert to string)
+    # Safely format the wrapper
     formatted = OUTPUT_WRAPPER.format(
         report=report,
-        sources=", ".join(sources) if sources else "LLM Knowledge",
+        sources=", ".join(sorted(seen_urls)) if seen_urls else "LLM Knowledge",
         confidence_score=float(confidence),
         mode=mode,
         token_usage=int(token_usage),

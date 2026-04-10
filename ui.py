@@ -648,23 +648,18 @@ def _clean_markdown_text(text: str) -> str:
     """
     text = text.strip()
 
-    # Remove wrapping ```markdown ... ``` or ``` ... ``` if the ENTIRE text is wrapped
-    # Be careful not to remove inner code blocks
-    outer_fence_match = re.match(
-        r'^```(?:markdown|text)?\s*\n(.*)\n```\s*$',
-        text,
-        re.DOTALL | re.IGNORECASE
-    )
-    if outer_fence_match:
-        inner = outer_fence_match.group(1)
-        # Only unwrap if the inner content doesn't look like it should be a code block
-        if not inner.strip().startswith('```'):
-            text = inner.strip()
-
-    # Remove trailing orphaned ``` that aren't part of a code block
-    # (happens when mermaid block was extracted and left a dangling fence)
-    text = re.sub(r'\n```\s*$', '', text)
-    text = re.sub(r'^```\s*\n', '', text)
+    # Aggressive multi-pass stripping of outer fences
+    # Handles cases like ```markdown\n# Title\n```
+    # or even nested/multiple fences if the LLM gets confused.
+    while True:
+        original = text
+        # Match ```markdown ... ```
+        text = re.sub(r'^```(?:markdown|text)?\s*\n?', '', text, flags=re.IGNORECASE | re.MULTILINE)
+        text = re.sub(r'\n?```\s*$', '', text, flags=re.MULTILINE)
+        
+        # If we didn't change anything, we're done
+        if text == original:
+            break
 
     return text.strip()
 
@@ -686,16 +681,14 @@ def render_content_with_mermaid(content: str):
 
     # Step 1: Remove outer wrapping fences if the ENTIRE response is wrapped
     # This is a common LLM mistake: wrapping the whole report in ```markdown...```
-    outer_md_match = re.match(
-        r'^```(?:markdown|text)?\s*\n(.*?)\n?```\s*$',
-        content,
-        re.DOTALL | re.IGNORECASE
-    )
-    if outer_md_match:
-        inner = outer_md_match.group(1).strip()
-        # Safety: only unwrap if inner content is substantial and has mermaid or normal prose
-        if len(inner) > 50:
-            content = inner
+    # We use a multi-pass approach for maximum robustness
+    while True:
+        old_content = content
+        content = re.sub(r'^```(?:markdown|text|md)?\s*\n?', '', content, flags=re.IGNORECASE)
+        content = re.sub(r'\n?```\s*$', '', content)
+        if content == old_content:
+            break
+    content = content.strip()
 
     # Step 2: Check if there are any mermaid blocks at all
     if '```mermaid' not in content.lower():
