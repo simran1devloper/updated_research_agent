@@ -1,0 +1,63 @@
+# OS and editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Logs
+*.log
+logs/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+.pyre/
+dist/
+build/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Environment files
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Frontend / Node
+node_modules/
+.next/
+out/
+coverage/
+.turbo/
+.pnpm-store/
+*.tsbuildinfo
+
+# Tooling-specific local files
+.vercel/
+.snowflake/
+.v0-trash/
+next.user-config.*
+__v0_runtime_loader.js
+__v0_devtools.tsx
+__v0_jsx-dev-runtime.ts
+
+# Test artifacts
+playwright-report/
+test-results/
+e2e/fixtures/.auth-state.json
