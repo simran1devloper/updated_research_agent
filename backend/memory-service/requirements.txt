@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+qdrant-client
+fastembed
+dependency-injector
+python-dotenv
+grpcio
+grpcio-tools

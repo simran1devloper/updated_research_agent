@@ -1,0 +1,21 @@
+INFO:     Will watch for changes in these directories: ['/Users/devanshuraj/Documents/prjt/AI_Agent_Microservices/backend/search-service']
+INFO:     Uvicorn running on http://0.0.0.0:8003 (Press CTRL+C to quit)
+INFO:     Started reloader process [11455] using WatchFiles
+INFO:     Started server process [11466]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in '.venv/lib/python3.14/site-packages/__editable___shared_0_1_0_finder.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [11466]
+INFO:     Started server process [16438]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:49895 - "GET /search/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49947 - "GET /search/health HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [16438]
+INFO:     Stopping reloader process [11455]

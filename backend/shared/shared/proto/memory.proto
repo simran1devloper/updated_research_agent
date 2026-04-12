@@ -1,0 +1,28 @@
+syntax = "proto3";
+package memory;
+
+service MemoryService {
+  rpc Search (MemorySearchRequest)  returns (MemorySearchResponse);
+  rpc Store  (MemoryStoreRequest)   returns (MemoryStoreResponse);
+}
+
+message MemorySearchRequest {
+  string query   = 1;
+  int32  limit   = 2;
+  string user_id = 3;
+}
+
+message MemorySearchResponse {
+  repeated string contexts = 1;
+}
+
+message MemoryStoreRequest {
+  string query_id  = 1;
+  string query     = 2;
+  string response  = 3;
+  string user_id   = 4;
+}
+
+message MemoryStoreResponse {
+  bool ok = 1;
+}

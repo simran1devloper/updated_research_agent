@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+langchain
+langchain-ollama
+langchain-core
+dependency-injector
+python-dotenv
+httpx
+grpcio
+grpcio-tools

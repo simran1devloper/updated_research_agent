@@ -1,0 +1,13 @@
+INFO:     Will watch for changes in these directories: ['/Users/devanshuraj/Documents/prjt/AI_Agent_Microservices/backend/memory-service']
+INFO:     Uvicorn running on http://0.0.0.0:8002 (Press CTRL+C to quit)
+INFO:     Started reloader process [26507] using WatchFiles
+INFO:     Started server process [26665]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+/Users/devanshuraj/Documents/prjt/AI_Agent_Microservices/backend/memory-service/.venv/lib/python3.14/site-packages/qdrant_client/qdrant_remote.py:288: UserWarning: Failed to obtain server version. Unable to check client-server compatibility. Set check_compatibility=False to skip version check.
+  show_warning(
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [26665]
+INFO:     Stopping reloader process [26507]

@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+pydantic[email]
+pydantic-settings
+sqlalchemy[asyncio]
+aiosqlite
+bcrypt
+pyjwt
+httpx
+authlib
+dependency-injector
+python-dotenv
+grpcio
+grpcio-tools

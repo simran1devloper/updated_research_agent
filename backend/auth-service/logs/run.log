@@ -1,0 +1,9 @@
+2026-04-12T11:19:25 [INFO] auth-service — Observability attached to auth-service
+2026-04-12T11:19:35 [INFO] auth-service — POST /auth/logout 204 0.009s
+INFO:     127.0.0.1:51012 - "POST /auth/logout HTTP/1.1" 204 No Content
+2026-04-12T11:19:38 [INFO] auth-service — POST /auth/login 200 0.193s
+INFO:     127.0.0.1:51019 - "POST /auth/login HTTP/1.1" 200 OK
+2026-04-12T12:08:41 [INFO] auth-service — OPTIONS /auth/refresh 200 0.000s
+INFO:     127.0.0.1:52125 - "OPTIONS /auth/refresh HTTP/1.1" 200 OK
+2026-04-12T12:08:41 [INFO] auth-service — POST /auth/refresh 200 0.015s
+INFO:     127.0.0.1:52125 - "POST /auth/refresh HTTP/1.1" 200 OK

@@ -1,0 +1,39 @@
+INFO:     Will watch for changes in these directories: ['/Users/devanshuraj/Documents/prjt/AI_Agent_Microservices/backend/search-service']
+INFO:     Uvicorn running on http://0.0.0.0:8003 (Press CTRL+C to quit)
+INFO:     Started reloader process [26516] using WatchFiles
+INFO:     Started server process [26670]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+Google CSE search failed: Client error '400 Bad Request' for url 'https://www.googleapis.com/customsearch/v1?key=676ba52845ce9732be6bd6f56f2fd1418bed36b4&cx=20f7552f383594a3d&q=how+to+setup+flink%3F&num=5'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Google CSE search failed: Client error '400 Bad Request' for url 'https://www.googleapis.com/customsearch/v1?key=676ba52845ce9732be6bd6f56f2fd1418bed36b4&cx=20f7552f383594a3d&q=how+to+setup+flink%3F&num=5'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Google CSE search failed: Client error '400 Bad Request' for url 'https://www.googleapis.com/customsearch/v1?key=676ba52845ce9732be6bd6f56f2fd1418bed36b4&cx=20f7552f383594a3d&q=how+to+setup+flink%3F+Step-by-step+instructions+for+downloading+Flink+%28e.g.%2C+direct+download+links+or+official+repository+guidance%29&num=5'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Google CSE search failed: Client error '400 Bad Request' for url 'https://www.googleapis.com/customsearch/v1?key=676ba52845ce9732be6bd6f56f2fd1418bed36b4&cx=20f7552f383594a3d&q=how+to+setup+flink%3F+Detailed+configuration+of+%60flink-conf.yaml%60+beyond+just+%60env.java.home%60+%28e.g.%2C+cluster+settings%2C+resource+allocation%2C+or+HA+configurations%29&num=5'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Google CSE search failed: Client error '400 Bad Request' for url 'https://www.googleapis.com/customsearch/v1?key=676ba52845ce9732be6bd6f56f2fd1418bed36b4&cx=20f7552f383594a3d&q=how+to+setup+flink%3F&num=5'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Google CSE search failed: Client error '400 Bad Request' for url 'https://www.googleapis.com/customsearch/v1?key=676ba52845ce9732be6bd6f56f2fd1418bed36b4&cx=20f7552f383594a3d&q=how+to+setup+flink%3F+No+source+explicitly+outlines+the+step-by-step+process+for+setting+up+a+Flink+cluster+%28e.g.%2C+configuring+%60flink-conf.yaml%60%2C+starting+the+cluster%2C+or+running+a+sample+job%29.&num=5'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Google CSE search failed: Client error '400 Bad Request' for url 'https://www.googleapis.com/customsearch/v1?key=676ba52845ce9732be6bd6f56f2fd1418bed36b4&cx=20f7552f383594a3d&q=how+to+setup+flink%3F+No+source+provides+detailed+instructions+for+configuring+high+availability+%28HA%29+or+fault+tolerance+in+Flink.&num=5'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Google CSE search failed: Client error '400 Bad Request' for url 'https://www.googleapis.com/customsearch/v1?key=676ba52845ce9732be6bd6f56f2fd1418bed36b4&cx=20f7552f383594a3d&q=how+to+setup+flink+%3F&num=5'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Google CSE search failed: Client error '400 Bad Request' for url 'https://www.googleapis.com/customsearch/v1?key=676ba52845ce9732be6bd6f56f2fd1418bed36b4&cx=20f7552f383594a3d&q=how+to+setup+flink+%3F&num=5'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Google CSE search failed: Client error '400 Bad Request' for url 'https://www.googleapis.com/customsearch/v1?key=676ba52845ce9732be6bd6f56f2fd1418bed36b4&cx=20f7552f383594a3d&q=how+to+setup+flink+%3F+No+clear%2C+step-by-step+guide+on+setting+up+a+Flink+cluster+%28e.g.%2C+configuring+task+managers%2C+job+managers%2C+or+YARN%2FKubernetes+deployment%29&num=5'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Google CSE search failed: Client error '400 Bad Request' for url 'https://www.googleapis.com/customsearch/v1?key=676ba52845ce9732be6bd6f56f2fd1418bed36b4&cx=20f7552f383594a3d&q=how+to+setup+flink+%3F+No+mention+of+environment+setup+%28e.g.%2C+setting+up+dependencies+like+Maven%2C+SBT%2C+or+IDE+integration+for+development%29&num=5'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Google CSE search failed: Client error '400 Bad Request' for url 'https://www.googleapis.com/customsearch/v1?key=676ba52845ce9732be6bd6f56f2fd1418bed36b4&cx=20f7552f383594a3d&q=how+to+setup+flink+%3F&num=5'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Google CSE search failed: Client error '400 Bad Request' for url 'https://www.googleapis.com/customsearch/v1?key=676ba52845ce9732be6bd6f56f2fd1418bed36b4&cx=20f7552f383594a3d&q=how+to+setup+flink+%3F+No+clear%2C+step-by-step+guide+on+setting+up+Flink+for+local+development+%28e.g.%2C+configuring+environment+variables%2C+setting+up+IDE%2C+or+running+a+sample+job+from+scratch%29&num=5'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+Google CSE search failed: Client error '400 Bad Request' for url 'https://www.googleapis.com/customsearch/v1?key=676ba52845ce9732be6bd6f56f2fd1418bed36b4&cx=20f7552f383594a3d&q=how+to+setup+flink+%3F+No+mention+of+Docker%2FKubernetes+setup+for+Flink+%28despite+Source+12%2F13%2F15+mentioning+Kubernetes%2C+no+practical+steps+are+provided%29&num=5'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [26670]
+INFO:     Stopping reloader process [26516]

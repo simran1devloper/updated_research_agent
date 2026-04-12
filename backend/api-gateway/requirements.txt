@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+httpx
+dependency-injector
+python-dotenv
+grpcio
+grpcio-tools

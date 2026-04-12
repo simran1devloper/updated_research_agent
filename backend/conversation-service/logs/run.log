@@ -1,0 +1,17 @@
+2026-04-12T11:19:25 [INFO] conversation-service — Observability attached to conversation-service
+2026-04-12T11:19:30 [INFO] conversation-service — GET /threads/thread_1775972970699/messages 200 0.003s
+INFO:     127.0.0.1:51010 - "GET /threads/thread_1775972970699/messages?limit=50 HTTP/1.1" 200 OK
+2026-04-12T11:19:38 [INFO] conversation-service — GET /users/5581b7c1-44e6-455b-bb40-61ca2029a650/threads 200 0.002s
+INFO:     127.0.0.1:51024 - "GET /users/5581b7c1-44e6-455b-bb40-61ca2029a650/threads HTTP/1.1" 200 OK
+2026-04-12T11:19:43 [INFO] conversation-service — GET /threads/thread_1775972982967/messages 200 0.006s
+INFO:     127.0.0.1:51030 - "GET /threads/thread_1775972982967/messages?limit=50 HTTP/1.1" 200 OK
+2026-04-12T11:22:29 [INFO] conversation-service — GET /users/5581b7c1-44e6-455b-bb40-61ca2029a650/threads 200 0.007s
+INFO:     127.0.0.1:51161 - "GET /users/5581b7c1-44e6-455b-bb40-61ca2029a650/threads HTTP/1.1" 200 OK
+2026-04-12T11:22:30 [INFO] conversation-service — GET /threads/thread_1775972982967/messages 200 0.002s
+INFO:     127.0.0.1:51163 - "GET /threads/thread_1775972982967/messages?limit=50 HTTP/1.1" 200 OK
+2026-04-12T11:22:34 [INFO] conversation-service — GET /threads/thread_1775972491334/messages 200 0.003s
+INFO:     127.0.0.1:51169 - "GET /threads/thread_1775972491334/messages?limit=50 HTTP/1.1" 200 OK
+2026-04-12T11:22:36 [INFO] conversation-service — GET /threads/thread_1775972459398/messages 200 0.002s
+INFO:     127.0.0.1:51176 - "GET /threads/thread_1775972459398/messages?limit=50 HTTP/1.1" 200 OK
+2026-04-12T12:08:41 [INFO] conversation-service — GET /threads/thread_1775975921100/messages 200 0.011s
+INFO:     127.0.0.1:52129 - "GET /threads/thread_1775975921100/messages?limit=50 HTTP/1.1" 200 OK

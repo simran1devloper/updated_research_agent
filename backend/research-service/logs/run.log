@@ -1,0 +1,5 @@
+2026-04-12T11:19:25 [INFO] research-service — Observability attached to research-service
+2026-04-12T11:19:54 [INFO] research-service — POST /research/run/stream 200 0.027s
+INFO:     127.0.0.1:51037 - "POST /research/run/stream HTTP/1.1" 200 OK
+2026-04-12T12:09:11 [INFO] research-service — POST /research/run/stream 200 0.041s
+INFO:     127.0.0.1:52140 - "POST /research/run/stream HTTP/1.1" 200 OK

@@ -1,0 +1,47 @@
+syntax = "proto3";
+package synthesis;
+
+service SynthesisService {
+  rpc Synthesize   (SynthesisRequest)   returns (SynthesisResponse);
+  rpc AnalyzeGaps  (GapAnalysisRequest) returns (GapAnalysisResponse);
+  rpc SynthesizeStream (SynthesisRequest) returns (stream TokenChunk);
+}
+
+message ResearchItem {
+  string content = 1;
+  string source  = 2;
+  string url     = 3;
+}
+
+message HistoryItem {
+  string role    = 1;
+  string content = 2;
+}
+
+message SynthesisRequest {
+  string               query         = 1;
+  repeated ResearchItem research_data = 2;
+  repeated HistoryItem  history       = 3;
+  repeated string       gaps          = 4;
+}
+
+message SynthesisResponse {
+  string          report      = 1;
+  repeated string citations   = 2;
+  int32           token_usage = 3;
+}
+
+message GapAnalysisRequest {
+  string               query         = 1;
+  repeated ResearchItem research_data = 2;
+  int32                 iteration     = 3;
+}
+
+message GapAnalysisResponse {
+  float           confidence_score = 1;
+  repeated string gaps             = 2;
+}
+
+message TokenChunk {
+  string chunk = 1;
+}

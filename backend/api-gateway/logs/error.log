@@ -1,0 +1,12 @@
+INFO:     Will watch for changes in these directories: ['/Users/devanshuraj/Documents/prjt/AI_Agent_Microservices/backend/api-gateway']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [26494] using WatchFiles
+INFO:     Started server process [26662]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+Token validation failed for path /api/v1/conversations/threads/thread_1775975921100/messages: Token expired
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [26662]
+INFO:     Stopping reloader process [26494]

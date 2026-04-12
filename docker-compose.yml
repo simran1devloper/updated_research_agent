@@ -1,0 +1,256 @@
+# ---------------------------------------------------------------------------
+# Shared environment fragments
+# ---------------------------------------------------------------------------
+x-ollama: &ollama-env
+  OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+  OLLAMA_MODEL_NAME: ${OLLAMA_MODEL_NAME:-ministral-3:latest}
+  OLLAMA_TIMEOUT: "120"
+
+x-service-urls: &service-urls
+  SERVICE_INTENT_URL: http://intent-service:8001
+  SERVICE_MEMORY_URL: http://memory-service:8002
+  SERVICE_SEARCH_URL: http://search-service:8003
+  SERVICE_SYNTHESIS_URL: http://synthesis-service:8004
+  SERVICE_RESEARCH_URL: http://research-service:8005
+  SERVICE_CONVERSATION_URL: http://conversation-service:8008
+
+x-grpc-hosts: &grpc-hosts
+  GRPC_INTENT_HOST: intent-service
+  GRPC_INTENT_GRPC_PORT: "50051"
+  GRPC_MEMORY_HOST: memory-service
+  GRPC_MEMORY_GRPC_PORT: "50052"
+  GRPC_SEARCH_HOST: search-service
+  GRPC_SEARCH_GRPC_PORT: "50053"
+  GRPC_SYNTHESIS_HOST: synthesis-service
+  GRPC_SYNTHESIS_GRPC_PORT: "50054"
+  GRPC_AUTH_HOST: auth-service
+  GRPC_AUTH_GRPC_PORT: "50055"
+  GRPC_CONVERSATION_HOST: conversation-service
+  GRPC_CONVERSATION_GRPC_PORT: "50056"
+
+# ---------------------------------------------------------------------------
+# Services
+# ---------------------------------------------------------------------------
+services:
+
+  # ── Qdrant ─────────────────────────────────────────────────────────────────
+  qdrant:
+    image: qdrant/qdrant:v1.9.2
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6333/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Intent Service ────────────────────────────────────────────────────────
+  intent-service:
+    build:
+      context: ./backend
+      dockerfile: intent-service/Dockerfile
+    ports:
+      - "8001:8001"   # REST (testing / health)
+      - "50051:50051" # gRPC (internal)
+    environment:
+      <<: *ollama-env
+    volumes:
+      - ./backend/shared:/app/shared_pkg
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/intent/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ── Memory Service ────────────────────────────────────────────────────────
+  memory-service:
+    build:
+      context: ./backend
+      dockerfile: memory-service/Dockerfile
+    ports:
+      - "8002:8002"   # REST (testing / health)
+      - "50052:50052" # gRPC (internal)
+    environment:
+      QDRANT_URL: http://qdrant:6333
+      QDRANT_PATH: /data/qdrant_db
+      QDRANT_COLLECTION: research_memory
+    volumes:
+      - ./backend/shared:/app/shared_pkg
+    depends_on:
+      qdrant:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/memory/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ── Search Service ────────────────────────────────────────────────────────
+  search-service:
+    build:
+      context: ./backend
+      dockerfile: search-service/Dockerfile
+    ports:
+      - "8003:8003"   # REST (testing / health)
+      - "50053:50053" # gRPC (internal)
+    environment:
+      TAVILY_API_KEY: ${TAVILY_API_KEY:-}
+      GOOGLE_API_KEY: ${GOOGLE_API_KEY:-}
+      GOOGLE_CSE_ID: ${GOOGLE_CSE_ID:-}
+    volumes:
+      - ./backend/shared:/app/shared_pkg
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8003/search/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ── Synthesis Service ─────────────────────────────────────────────────────
+  synthesis-service:
+    build:
+      context: ./backend
+      dockerfile: synthesis-service/Dockerfile
+    ports:
+      - "8004:8004"   # REST (testing / health)
+      - "50054:50054" # gRPC (internal)
+    environment:
+      <<: *ollama-env
+    volumes:
+      - ./backend/shared:/app/shared_pkg
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8004/synthesis/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ── Research Service ──────────────────────────────────────────────────────
+  research-service:
+    build:
+      context: ./backend
+      dockerfile: research-service/Dockerfile
+    ports:
+      - "8005:8005" # REST + MCP (/mcp/sse)
+    environment:
+      <<: [*service-urls, *grpc-hosts]
+      RESEARCH_MAX_ITERATIONS: "3"
+      RESEARCH_CONFIDENCE_THRESHOLD: "0.8"
+      RESEARCH_MAX_TOKENS_PER_QUERY: "5000"
+      RESEARCH_OUTPUT_DIR: /data/output
+    volumes:
+      - research_data:/data
+      - ./backend/shared:/app/shared_pkg
+    depends_on:
+      intent-service:
+        condition: service_healthy
+      memory-service:
+        condition: service_healthy
+      search-service:
+        condition: service_healthy
+      synthesis-service:
+        condition: service_healthy
+      conversation-service:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8005/research/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # ── Conversation Service ──────────────────────────────────────────────────
+  conversation-service:
+    build:
+      context: ./backend
+      dockerfile: conversation-service/Dockerfile
+    ports:
+      - "8008:8008"   # REST (thread/message CRUD)
+      - "50056:50056" # gRPC (used by research-service)
+    environment:
+      CONVERSATION_DB_URL: sqlite+aiosqlite:////data/conversations.db
+    volumes:
+      - conversation_data:/data
+      - ./backend/shared:/app/shared_pkg
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8008/conversation/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ── Auth Service ──────────────────────────────────────────────────────────
+  auth-service:
+    build:
+      context: ./backend
+      dockerfile: auth-service/Dockerfile
+    ports:
+      - "8007:8007"   # REST (register, login, OAuth, user mgmt)
+      - "50055:50055" # gRPC (token validation — used by gateway)
+    environment:
+      DATABASE_URL: sqlite+aiosqlite:////data/auth.db
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-production}
+      JWT_ACCESS_TTL_MINUTES: "30"
+      JWT_REFRESH_TTL_DAYS: "7"
+      AUTH_BASE_URL: ${AUTH_BASE_URL:-http://localhost:8007}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:-}
+      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET:-}
+    volumes:
+      - auth_data:/data
+      - ./backend/shared:/app/shared_pkg
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8007/auth/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ── API Gateway ───────────────────────────────────────────────────────────
+  api-gateway:
+    build:
+      context: ./backend
+      dockerfile: api-gateway/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      <<: [*service-urls, *grpc-hosts]
+    volumes:
+      - ./backend/shared:/app/shared_pkg
+    depends_on:
+      research-service:
+        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+      conversation-service:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ── Frontend ──────────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8501:8501"
+    environment:
+      API_GATEWAY_URL: http://api-gateway:8000
+    depends_on:
+      - api-gateway
+    restart: unless-stopped
+
+# ---------------------------------------------------------------------------
+# Volumes
+# ---------------------------------------------------------------------------
+volumes:
+  qdrant_data:
+  research_data:
+  auth_data:
+  conversation_data:

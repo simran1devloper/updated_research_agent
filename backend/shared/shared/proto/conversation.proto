@@ -1,0 +1,50 @@
+syntax = "proto3";
+package conversation;
+
+service ConversationService {
+  rpc EnsureThread  (EnsureThreadRequest)  returns (ThreadResponse);
+  rpc AppendMessage (AppendMessageRequest) returns (MessageResponse);
+  rpc GetHistory    (GetHistoryRequest)    returns (GetHistoryResponse);
+}
+
+message EnsureThreadRequest {
+  string thread_id = 1;   // client-supplied; created if not exists
+  string user_id   = 2;
+  string title     = 3;   // used only on creation
+}
+
+message ThreadResponse {
+  string thread_id  = 1;
+  string user_id    = 2;
+  string title      = 3;
+  string created_at = 4;
+}
+
+message AppendMessageRequest {
+  string thread_id = 1;
+  string role      = 2;   // "user" | "assistant"
+  string content   = 3;
+  string metadata  = 4;   // JSON string, optional
+}
+
+message MessageResponse {
+  string message_id = 1;
+  string thread_id  = 2;
+  string role       = 3;
+  string content    = 4;
+  string created_at = 5;
+}
+
+message GetHistoryRequest {
+  string thread_id = 1;
+  int32  limit     = 2;
+}
+
+message HistoryMessage {
+  string role    = 1;
+  string content = 2;
+}
+
+message GetHistoryResponse {
+  repeated HistoryMessage messages = 1;
+}

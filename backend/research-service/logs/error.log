@@ -1,0 +1,89 @@
+INFO:     Will watch for changes in these directories: ['/Users/devanshuraj/Documents/prjt/AI_Agent_Microservices/backend/research-service']
+INFO:     Uvicorn running on http://0.0.0.0:8005 (Press CTRL+C to quit)
+INFO:     Started reloader process [26533] using WatchFiles
+/Users/devanshuraj/Documents/prjt/AI_Agent_Microservices/backend/research-service/.venv/lib/python3.14/site-packages/langchain_core/_api/deprecation.py:25: UserWarning: Core Pydantic V1 functionality isn't compatible with Python 3.14 or greater.
+  from pydantic.v1.fields import FieldInfo as FieldInfoV1
+INFO:     Started server process [26668]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+[04/12/26 11:19:54] WARNING  Memory gRPC search failed:      memory_client.py:23
+                             <AioRpcError of RPC that                           
+                             terminated with:                                   
+                                     status =                                   
+                             StatusCode.UNKNOWN                                 
+                                     details = "Unexpected                      
+                             <class                                             
+                             'qdrant_client.http.exceptions.                    
+                             ResponseHandlingException'>:                       
+                             [Errno 61] Connection refused"                     
+                                     debug_error_string =                       
+                             "UNKNOWN:Error received from                       
+                             peer  {grpc_status:2,                              
+                             grpc_message:"Unexpected <class                    
+                             \'qdrant_client.http.exceptions                    
+                             .ResponseHandlingException\'>:                     
+                             [Errno 61] Connection                              
+                             refused"}"                                         
+                             >                                                  
+[04/12/26 11:21:44] WARNING  Memory gRPC store failed:       memory_client.py:34
+                             <AioRpcError of RPC that                           
+                             terminated with:                                   
+                                     status =                                   
+                             StatusCode.UNKNOWN                                 
+                                     details = "Unexpected                      
+                             <class                                             
+                             'qdrant_client.http.exceptions.                    
+                             ResponseHandlingException'>:                       
+                             [Errno 61] Connection refused"                     
+                                     debug_error_string =                       
+                             "UNKNOWN:Error received from                       
+                             peer  {grpc_status:2,                              
+                             grpc_message:"Unexpected <class                    
+                             \'qdrant_client.http.exceptions                    
+                             .ResponseHandlingException\'>:                     
+                             [Errno 61] Connection                              
+                             refused"}"                                         
+                             >                                                  
+[04/12/26 12:09:11] WARNING  Memory gRPC search failed:      memory_client.py:23
+                             <AioRpcError of RPC that                           
+                             terminated with:                                   
+                                     status =                                   
+                             StatusCode.UNKNOWN                                 
+                                     details = "Unexpected                      
+                             <class                                             
+                             'qdrant_client.http.exceptions.                    
+                             ResponseHandlingException'>:                       
+                             [Errno 61] Connection refused"                     
+                                     debug_error_string =                       
+                             "UNKNOWN:Error received from                       
+                             peer  {grpc_message:"Unexpected                    
+                             <class                                             
+                             \'qdrant_client.http.exceptions                    
+                             .ResponseHandlingException\'>:                     
+                             [Errno 61] Connection refused",                    
+                             grpc_status:2}"                                    
+                             >                                                  
+[04/12/26 12:11:13] WARNING  Memory gRPC store failed:       memory_client.py:34
+                             <AioRpcError of RPC that                           
+                             terminated with:                                   
+                                     status =                                   
+                             StatusCode.UNKNOWN                                 
+                                     details = "Unexpected                      
+                             <class                                             
+                             'qdrant_client.http.exceptions.                    
+                             ResponseHandlingException'>:                       
+                             [Errno 61] Connection refused"                     
+                                     debug_error_string =                       
+                             "UNKNOWN:Error received from                       
+                             peer  {grpc_message:"Unexpected                    
+                             <class                                             
+                             \'qdrant_client.http.exceptions                    
+                             .ResponseHandlingException\'>:                     
+                             [Errno 61] Connection refused",                    
+                             grpc_status:2}"                                    
+                             >                                                  
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [26668]
+INFO:     Stopping reloader process [26533]

@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+tavily-python
+duckduckgo-search
+httpx
+playwright
+dependency-injector
+python-dotenv
+grpcio
+grpcio-tools

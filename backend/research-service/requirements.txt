@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+langgraph
+langgraph-checkpoint-sqlite
+langchain
+langchain-core
+httpx
+dependency-injector
+python-dotenv
+grpcio
+grpcio-tools
+mcp[cli]

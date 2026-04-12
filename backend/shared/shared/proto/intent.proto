@@ -1,0 +1,23 @@
+syntax = "proto3";
+package intent;
+
+service IntentService {
+  rpc Classify (ClassifyRequest) returns (ClassifyResponse);
+}
+
+message HistoryItem {
+  string role    = 1;
+  string content = 2;
+}
+
+message ClassifyRequest {
+  string query             = 1;
+  repeated HistoryItem history = 2;
+}
+
+message ClassifyResponse {
+  float  confidence_score       = 1;
+  bool   is_clear               = 2;
+  string clarification_question = 3;
+  string category               = 4;
+}
